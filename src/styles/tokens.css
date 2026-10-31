@@ -1,0 +1,34 @@
+/* The deck always takes place at night, so there is one palette, not a light and dark pair. */
+:root {
+  color-scheme: dark;
+
+  --night-deep: #121a2b;
+  --night: #1d2638;
+  --parchment: #efe4cc;
+  --parchment-dim: #b8ad96;
+  --ink: #2a2118;
+  --candle: #f0b44c;
+  --ecto: #a6ece4;
+  --beam: #fff2c4;
+  --gilt: #b48d4f;
+  --gilt-dark: #6e5229;
+
+  --font-display: 'IM Fell English', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Commissioner', 'Segoe UI', system-ui, sans-serif;
+
+  /* Type scale: a 1.25 ratio off a 17px body. */
+  --step--1: 0.85rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.33rem;
+  --step-2: 1.66rem;
+  --step-3: clamp(1.9rem, 3.4vw, 2.6rem);
+  --step-5: clamp(3rem, 9vw, 7rem);
+
+  --nav-gutter: 112px;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --nav-gutter: 16px;
+  }
+}
