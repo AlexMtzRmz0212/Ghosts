@@ -183,3 +183,4 @@ cython_debug/
 node_modules/
 
 .claude/*
+.i18n-check.mjs

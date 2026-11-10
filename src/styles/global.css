@@ -53,7 +53,7 @@ kbd {
   z-index: 1;
   height: 100dvh;
   overflow-y: auto;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   outline: none;
 }
 
@@ -377,7 +377,6 @@ kbd {
 }
 
 .how-slide h2,
-.season-slide h2,
 .credits-slide h2 {
   font-size: var(--step-3);
 }
@@ -413,100 +412,6 @@ kbd {
 
 .how-list strong {
   font-weight: 600;
-}
-
-/* ---------- Season chapter ---------- */
-
-.season-slide .season-floor {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: var(--step-2);
-  color: var(--candle);
-  margin: 0 0 0.25rem;
-}
-
-.season-slide h2 {
-  font-size: var(--step-5);
-}
-
-.season-meta {
-  color: var(--parchment-dim);
-  margin: 1.5rem 0 0;
-}
-
-.spoiler-line {
-  margin: 2.5rem 0 0;
-  padding-top: 1rem;
-  max-width: 38ch;
-  border-top: 1px dashed rgb(166 236 228 / 0.4);
-  color: var(--ecto);
-}
-
-/* ---------- Intro slide ---------- */
-
-.intro-slide {
-  display: grid;
-  grid-template-columns: minmax(0, 1.75fr) minmax(280px, 1fr);
-  grid-template-areas:
-    'head head'
-    'frame side';
-  gap: 20px 40px;
-  align-items: start;
-}
-
-.intro-head {
-  grid-area: head;
-}
-
-.ep-code {
-  margin: 0;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: var(--step-1);
-  color: var(--candle);
-}
-
-.intro-head h2 {
-  font-size: var(--step-3);
-  margin-top: 0.15rem;
-}
-
-.ep-date {
-  margin: 0.4rem 0 0;
-  color: var(--parchment-dim);
-  font-size: var(--step--1);
-}
-
-.intro {
-  grid-area: frame;
-  margin: 0;
-}
-
-/* The intro hangs on the wall in a gilt frame. */
-.intro-frame {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  border: 14px solid transparent;
-  border-image: linear-gradient(135deg, #d9b878, var(--gilt) 30%, var(--gilt-dark) 55%, #c9a462 80%, var(--gilt-dark)) 1;
-  box-shadow:
-    0 0 0 2px #3b2b14,
-    0 24px 50px rgb(0 0 0 / 0.55),
-    inset 0 0 0 2px rgb(0 0 0 / 0.5);
-  background: var(--night-deep);
-}
-
-.intro-frame > img,
-.intro-frame > .placeholder {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.intro figcaption {
-  margin-top: 0.75rem;
-  font-size: var(--step--1);
-  color: var(--parchment-dim);
 }
 
 /* Placeholder art */
@@ -588,36 +493,238 @@ kbd {
 .prop-center {
   fill: var(--candle);
 }
-
-.ph-departing .ghost-figure {
-  opacity: 0.35;
+.prop-wood {
+  fill: #a06f42;
 }
+.prop-dark {
+  fill: #2a2e3b;
+  stroke: var(--parchment);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+.prop-tweed {
+  fill: #8a7358;
+  stroke: var(--parchment);
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+.prop-pink {
+  fill: #e8709f;
+  stroke: #a63e69;
+  stroke-width: 0.8;
+}
+.prop-purse {
+  fill: #9a3f55;
+  stroke: var(--parchment);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+.prop-red {
+  fill: #b83a34;
+}
+.prop-redhair {
+  fill: #b8452a;
+  stroke: #7c2a17;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+.prop-redhair-line {
+  fill: none;
+  stroke: #b8452a;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+.prop-coif {
+  fill: #f6efdc;
+  stroke: #8d826a;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+.prop-coif-tie {
+  fill: none;
+  stroke: #f6efdc;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.prop-gas circle {
+  fill: #98d062;
+  fill-opacity: 0.78;
+  stroke: #5f9a33;
+  stroke-width: 1;
+}
+.prop-bolt path {
+  fill: #ffe45c;
+  stroke: #c79a00;
+  stroke-width: 1;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 3px rgb(255 228 92 / 0.9));
+}
+.prop-note ellipse {
+  fill: var(--candle);
+}
+.prop-note path {
+  fill: none;
+  stroke: var(--candle);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.prop-bloom {
+  stroke: rgb(0 0 0 / 0.25);
+  stroke-width: 0.6;
+}
+.prop-lens {
+  fill: #e86cc4;
+  fill-opacity: 0.8;
+  stroke: #4a2160;
+  stroke-width: 1.3;
+}
+.prop-lens-glint {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.85);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+.prop-frame {
+  fill: none;
+  stroke: #4a2160;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+}
+.prop-blood path {
+  fill: #b02a35;
+  stroke: #6e1620;
+  stroke-width: 0.8;
+}
+.prop-clover circle {
+  fill: #3fae5a;
+  stroke: #217a39;
+  stroke-width: 1;
+}
+.prop-clover-stem {
+  fill: none;
+  stroke: #217a39;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.prop-case {
+  fill: #8b5a35;
+  stroke: var(--parchment);
+  stroke-width: 1.2;
+}
+.prop-case-strap {
+  fill: none;
+  stroke: #d9b36a;
+  stroke-width: 1.6;
+}
+.prop-dream {
+  fill: #e9e4ff;
+  fill-opacity: 0.92;
+}
+.prop-dream-star {
+  fill: #8a7bd6;
+}
+.prop-hair {
+  fill: #5e3d27;
+  stroke: #3b2415;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+.prop-tie {
+  fill: #f08ab4;
+  stroke: #8a2f5c;
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+}
+.prop-tie-dot {
+  fill: #2f62c9;
+}
+.prop-shut {
+  fill: none;
+  stroke: #12202a;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+.prop-zzz {
+  fill: var(--parchment);
+  font: italic 700 13px var(--font-display);
+}
+.prop-cord {
+  fill: none;
+  stroke: #3a3a46;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1.6 1.4;
+}
+.prop-eyebag {
+  fill: #4e3d66;
+  opacity: 0.75;
+}
+.prop-sore {
+  fill: #86303f;
+  stroke: #b9525f;
+  stroke-width: 1;
+}
+.prop-sore-pus {
+  fill: #e2d072;
+}
+.prop-wound {
+  fill: none;
+  stroke: #a8323f;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.prop-wound-thin {
+  stroke-width: 1.6;
+}
+.prop-plaster {
+  fill: #e8cfa6;
+  stroke: #b89a70;
+  stroke-width: 1;
+}
+.prop-pop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: prop-pop 450ms cubic-bezier(0.25, 0.8, 0.25, 1) both;
+}
+@keyframes prop-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
 .ph-beam {
   mix-blend-mode: screen;
 }
 
-/* Hotspots: cold spots */
+/*
+ * Hotspots: invisible click targets laid over each ghost (and the house). Click for the card,
+ * hover for the name. Sizes are a share of the TV screen so they follow the ghosts when it scales.
+ */
 .hotspot {
   position: absolute;
-  width: 26px;
-  height: 26px;
-  margin: -13px 0 0 -13px;
+  width: 5%;
+  height: 14%;
+  margin: 0;
   padding: 0;
-  border-radius: 50%;
-  border: 2px solid rgb(220 255 250 / 0.9);
-  background: rgb(166 236 228 / 0.3);
+  transform: translate(-50%, -50%);
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
   cursor: pointer;
-  animation: cold 2.8s ease-in-out infinite;
 }
 
-.hotspot[data-new] {
-  border-color: var(--candle);
-  background: rgb(240 180 76 / 0.35);
+.hotspot[data-kind='house'] {
+  width: 48%;
+  height: 40%;
 }
 
+/* A soft highlight on whoever's card is open. */
 .hotspot[data-open] {
-  animation: none;
-  background: var(--ecto);
+  background: rgb(166 236 228 / 0.12);
+  box-shadow: 0 0 16px rgb(166 236 228 / 0.35);
 }
 
 .hotspot-label {
@@ -639,17 +746,6 @@ kbd {
 .hotspot:hover .hotspot-label,
 .hotspot:focus-visible .hotspot-label {
   opacity: 1;
-}
-
-@keyframes cold {
-  50% {
-    box-shadow: 0 0 0 10px rgb(166 236 228 / 0);
-    transform: scale(1.08);
-  }
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgb(166 236 228 / 0.45);
-  }
 }
 
 /* A calling card, in ink on parchment. */
@@ -739,30 +835,12 @@ kbd {
   pointer-events: none;
 }
 
-/* Side column */
-.intro-side {
-  grid-area: side;
-  min-width: 0;
-}
-
-.intro-side h3 {
-  font-size: var(--step-1);
-  color: var(--parchment);
-  margin: 0 0 0.6rem;
-}
-
-.intro-side h3 + * {
-  margin-bottom: 1.6rem;
-}
-
 .changes {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   gap: 0.6rem;
-  max-height: 34vh;
-  overflow-y: auto;
 }
 
 .change {
@@ -805,103 +883,6 @@ kbd {
   margin: 0;
 }
 
-/* ---------- Timeline ---------- */
-
-.timeline {
-  display: block;
-  width: 100%;
-  height: auto;
-  font-family: var(--font-body);
-}
-
-.timeline .tick line {
-  stroke: rgb(239 228 204 / 0.1);
-}
-.timeline .tick text {
-  fill: var(--parchment-dim);
-  font-size: 14px;
-}
-.break-label {
-  fill: var(--parchment-dim);
-  font-size: 15px;
-  font-style: italic;
-  font-family: var(--font-display);
-}
-.now-line {
-  stroke: var(--candle);
-  stroke-width: 2;
-  stroke-dasharray: 4 4;
-}
-.now-label {
-  fill: var(--candle);
-  font-size: 15px;
-  font-style: italic;
-  font-family: var(--font-display);
-}
-.row-name {
-  fill: var(--parchment);
-  font-family: var(--font-display);
-  font-size: 22px;
-}
-.row-years {
-  fill: var(--ecto);
-  font-size: 15px;
-  font-variant-numeric: tabular-nums;
-}
-.row-sub {
-  fill: var(--parchment-dim);
-  font-size: 13px;
-}
-.bar-alive {
-  fill: rgb(239 228 204 / 0.55);
-}
-.bar-ghost {
-  fill: rgb(166 236 228 / 0.55);
-  filter: drop-shadow(0 0 5px rgb(166 236 228 / 0.55));
-}
-.bar-away {
-  stroke: var(--ecto);
-  stroke-width: 2;
-  stroke-dasharray: 3 5;
-}
-.bar-beam {
-  fill: var(--beam);
-  filter: drop-shadow(0 0 8px var(--beam));
-}
-.row-gone .row-name,
-.row-away .row-name {
-  opacity: 0.6;
-}
-
-.timeline.compact .row-name {
-  font-size: 18px;
-}
-.timeline.compact .row-years {
-  font-size: 14px;
-}
-.timeline.compact .now-label {
-  font-size: 13px;
-}
-
-.timeline-slide h2 {
-  font-size: var(--step-3);
-  max-width: 24ch;
-}
-
-.timeline-wrap {
-  margin-top: 2rem;
-  padding: 24px 28px 12px;
-  border-radius: 6px;
-  background: rgb(14 19 32 / 0.6);
-  border: 1px solid rgb(239 228 204 / 0.1);
-}
-
-.footnote {
-  margin: 0.75rem 0 0;
-  font-size: var(--step--1);
-  color: var(--parchment-dim);
-}
-
 /* ---------- Credits ---------- */
 
 .credits-slide {
@@ -919,52 +900,6 @@ kbd {
   margin-bottom: 1.5rem;
 }
 
-/* ---------- Narrow screens ---------- */
-
-@media (max-width: 1100px) {
-  .intro-slide {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      'head'
-      'frame'
-      'side';
-  }
-  .changes {
-    max-height: none;
-  }
-}
-
-@media (max-width: 760px) {
-  .intro-frame {
-    border-width: 8px;
-  }
-  .hotspot {
-    width: 22px;
-    height: 22px;
-    margin: -11px 0 0 -11px;
-  }
-  /* The card would cover the whole picture, so it sits under it instead. */
-  .hotspot-card,
-  .hotspot-card[data-side] {
-    position: absolute;
-    top: calc(100% + 12px);
-    left: -8px;
-    right: -8px;
-    width: auto;
-    max-height: none;
-  }
-  .intro:has(.hotspot-card) figcaption {
-    visibility: hidden;
-  }
-  .timeline-wrap {
-    padding: 12px 8px 4px;
-    overflow-x: auto;
-  }
-  .timeline-wrap .timeline {
-    min-width: 640px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -975,4 +910,13 @@ kbd {
   .floorboards {
     display: none;
   }
+}
+
+.sidenav .lang-toggle {
+  font: 600 var(--step--1) / 1 var(--font-body, inherit);
+  letter-spacing: 0.04em;
+  border: 1px solid rgb(239 228 204 / 0.3);
+  width: 34px;
+  height: 34px;
+  margin-bottom: 4px;
 }

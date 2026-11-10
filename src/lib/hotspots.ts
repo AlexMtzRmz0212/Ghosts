@@ -1,8 +1,9 @@
 import type { Episode, Hotspot } from '../data/types';
-import { ghostsAt, statusAt } from './spoilers';
+import { GHOSTS } from '../data/ghosts';
+import { spotAt, statusAt } from './spoilers';
 
-// Screenshots dropped into src/assets/intros/ (named s01e01.jpg, .png or .webp) replace the
-// drawn placeholder for that episode. See src/assets/intros/README.md.
+// Screenshots dropped into src/assets/intros/ (named s01e01.jpg, .png or .webp) are shown on the
+// TV for that episode, over the drawn art. See src/assets/intros/README.md.
 const SCREENSHOTS = import.meta.glob<string>('../assets/intros/*.{jpg,jpeg,png,webp}', {
   eager: true,
   query: '?url',
@@ -14,15 +15,23 @@ export function screenshotFor(ep: Episode): string | undefined {
   return match?.[1];
 }
 
-/** Ghosts drawn in this episode's placeholder art: introduced, at home, and haunting Woodstone or next door. */
-export const ghostsInFrame = (ep: Episode) =>
-  ghostsAt(ep.id).filter((g) => g.haunts !== 'elsewhere' && statusAt(g, ep.id)?.status === 'home');
+export interface Spot extends Hotspot {
+  /** Stable across episodes, so a spot can fade in and out instead of being replaced. */
+  key: string;
+  /** Whether the spot is on screen at this episode. */
+  on: boolean;
+}
 
-/** Hotspots for an episode: hand-placed ones if the episode has them, else generated from the placeholder layout. */
-export function hotspotsFor(ep: Episode): Hotspot[] {
-  if (ep.hotspots) return ep.hotspots;
+/** Ghosts that appear in the drawn art. Ghosts marked `haunts: 'elsewhere'` never do. */
+export const ART_GHOSTS = GHOSTS.filter((g) => g.haunts !== 'elsewhere');
+
+/** Spots for an episode: hand-placed ones if the episode has them, else generated from the drawn art. */
+export function spotsFor(ep: Episode): Spot[] {
+  if (ep.hotspots) return ep.hotspots.map((h, i) => ({ ...h, key: `custom-${i}`, on: true }));
   const bnbOpen = ep.id >= 's02e01';
-  const house: Hotspot = {
+  const house: Spot = {
+    key: 'house',
+    on: true,
     x: 50,
     y: 31,
     label: bnbOpen ? 'Woodstone B&B' : 'Woodstone Mansion',
@@ -30,6 +39,13 @@ export function hotspotsFor(ep: Episode): Hotspot[] {
       ? 'Sam and Jay’s inn. The living guests check in; the dead residents never check out.'
       : 'A crumbling country estate in upstate New York. Sam inherits it and plans to turn it into a B&B.',
   };
-  const ghosts = ghostsInFrame(ep).map<Hotspot>((g) => ({ ...g.spot, label: g.name, explanation: g.era, ghostId: g.id }));
+  const ghosts = ART_GHOSTS.map<Spot>((g) => ({
+    key: g.id,
+    on: statusAt(g, ep.id)?.status === 'home',
+    ...spotAt(g, ep.id),
+    label: g.name,
+    explanation: g.era,
+    ghostId: g.id,
+  }));
   return [house, ...ghosts];
 }

@@ -4,6 +4,15 @@ import type { Ghost } from './types';
 // stated age at death; where the show gives no age they are estimates and marked approx.
 // `revealedIn` is set to the earliest episode we're confident states the fact. When unsure,
 // a later episode is used, so the deck errs toward hiding things rather than spoiling them.
+/** Out by the right edge of the TV: where Pete stands when he is away from the house, with Donna beside him. */
+const PETE_TRIP = { x: 87, y: 55 };
+
+/** Next to Joan's spot, where Sasappis stands while she is at Woodstone. */
+const BESIDE_JOAN = { x: 70, y: 94 };
+
+/** Next to Jessica's spot, where Sasappis stands while she is at Woodstone. */
+const BESIDE_JESSICA = { x: 61, y: 91 };
+
 export const GHOSTS: Ghost[] = [
   {
     id: 'thorfinn',
@@ -13,7 +22,8 @@ export const GHOSTS: Ghost[] = [
     died: 1000,
     approx: 'both',
     main: true,
-    prop: 'helmet',
+    prop: 'beard',
+    extra: ['lightning'], // his power: electricity
     spot: { x: 37, y: 64 },
     timeline: [{ ep: 's01e01', status: 'home', note: 'Already haunting the house when Sam and Jay move in.' }],
     facts: [
@@ -32,8 +42,19 @@ export const GHOSTS: Ghost[] = [
     approx: 'born',
     main: true,
     prop: 'feather',
+    // His power is entering people's dreams. Shown only in the episodes where he is seen using it
+    // (S3E2 is the one confirmed); add more episodes here.
+    moments: [{ prop: 'dreamcloud', eps: ['s03e02'] }],
     spot: { x: 19, y: 76 },
-    timeline: [{ ep: 's01e01', status: 'home', note: 'Already haunting the land when Sam and Jay move in.' }],
+    // He stands beside Joan whenever she is around (S4E17 on) or Jessica (S2E11 to S2E12), and goes back to his own spot when she is away.
+    timeline: [
+      { ep: 's01e01', status: 'home', note: 'Already haunting the land when Sam and Jay move in.' },
+      { ep: 's02e11', status: 'home', note: 'Heads over to Jessica.', spot: BESIDE_JESSICA },
+      { ep: 's02e13', status: 'home', note: 'Back on his own while Jessica is gone.', spot: null },
+      { ep: 's04e17', status: 'home', note: 'Heads over to meet Joan.', spot: BESIDE_JOAN },
+      { ep: 's05e07', status: 'home', note: 'Back on his own while Joan is away.', spot: null },
+      { ep: 's05e18', status: 'home', note: 'Right back beside Joan.', spot: BESIDE_JOAN },
+    ],
     facts: [
       { text: 'Lenape, died on this land in 1513. He keeps the cause to himself.', revealedIn: 's01e01' },
       { text: 'A storyteller whose father never believed in his stories.', revealedIn: 's01e14' },
@@ -47,7 +68,7 @@ export const GHOSTS: Ghost[] = [
     born: 1742,
     died: 1777,
     main: true,
-    prop: 'tricorn',
+    prop: 'gas', // his power: a foul smell for anyone who walks through him
     spot: { x: 37, y: 45 },
     timeline: [{ ep: 's01e01', status: 'home', note: 'Already haunting the house when Sam and Jay move in.' }],
     facts: [
@@ -64,7 +85,10 @@ export const GHOSTS: Ghost[] = [
     born: 1850,
     died: 1895,
     main: true,
-    prop: 'collar',
+    prop: 'updo',
+    reveal: { ep: 's03e08', prop: 'cord' },
+    // Her power: the living can see her, but only on St. Patrick's Day (S4E16 confirmed; S5E13 by its title).
+    moments: [{ prop: 'clover', eps: ['s04e16', 's05e13'] }],
     spot: { x: 50, y: 45 },
     timeline: [{ ep: 's01e01', status: 'home', note: 'Already haunting the house when Sam and Jay move in.' }],
     facts: [
@@ -82,6 +106,7 @@ export const GHOSTS: Ghost[] = [
     approx: 'born',
     main: true,
     prop: 'microphone',
+    extra: ['notes'], // her power: the living can hear her hum
     spot: { x: 63, y: 64 },
     timeline: [{ ep: 's01e01', status: 'home', note: 'Already haunting the house when Sam and Jay move in.' }],
     facts: [
@@ -99,6 +124,7 @@ export const GHOSTS: Ghost[] = [
     died: 1969,
     main: true,
     prop: 'daisy',
+    extra: ['flowers', 'hippyglasses'], // flowers for her power (anyone who walks through her feels high)
     spot: { x: 85, y: 80 },
     timeline: [
       { ep: 's01e01', status: 'home', note: 'Already haunting the house when Sam and Jay move in.' },
@@ -122,6 +148,13 @@ export const GHOSTS: Ghost[] = [
     spot: { x: 50, y: 68 },
     timeline: [
       { ep: 's01e01', status: 'home', note: 'Already haunting the house when Sam and Jay move in.' },
+      // Once he learns he can leave the house he goes on trips: shown at the edge, where Donna is.
+      { ep: 's03e09', status: 'home', note: 'Finds out he can leave the house, and heads off to St. Lucia.', spot: PETE_TRIP },
+      { ep: 's04e01', status: 'home', note: 'Back home from St. Lucia.', spot: null },
+      { ep: 's04e19', status: 'home', note: 'Off to see Donna again.', spot: PETE_TRIP },
+      { ep: 's04e20', status: 'home', note: 'Back home.', spot: null },
+      { ep: 's05e15', status: 'home', note: 'Heads to St. Lucia to see Donna, as a friend.', spot: PETE_TRIP },
+      { ep: 's05e16', status: 'home', note: 'Back home.', spot: null },
       { ep: 's05e22', status: 'away', note: 'Vanished on the trip back from England. No one knows where he is.' },
       { ep: 's06e02', status: 'home', note: 'Turned up on the front lawn with no memory of the other ghosts.' },
     ],
@@ -155,7 +188,8 @@ export const GHOSTS: Ghost[] = [
     born: 1820,
     died: 1850,
     approx: 'both',
-    prop: 'none',
+    prop: 'soresHeavy',
+    reveal: { ep: 's05e22', prop: 'tiara' },
     spot: { x: 44, y: 86 },
     timeline: [{ ep: 's01e02', status: 'home', note: 'One of the cholera victims who live in the basement.' }],
     facts: [
@@ -170,7 +204,7 @@ export const GHOSTS: Ghost[] = [
     born: 1740,
     died: 1777,
     approx: 'both',
-    prop: 'tricorn',
+    prop: 'sash',
     spot: { x: 7, y: 72 },
     timeline: [{ ep: 's01e08', status: 'home', note: 'Leads the Redcoat ghosts who haunt the shed.' }],
     facts: [
@@ -181,13 +215,30 @@ export const GHOSTS: Ghost[] = [
   {
     id: 'stephanie',
     name: 'Stephanie',
+    fadesAway: true,
     era: '1980s prom night',
     born: 1969,
     died: 1987,
     approx: 'born',
-    prop: 'none',
+    prop: 'corsage',
     spot: { x: 50, y: 22 },
-    timeline: [{ ep: 's01e17', status: 'home', note: 'Comes down from the attic for the first time.' }],
+    // She sleeps most of the time and is only awake when something wakes her. Awake episodes are the
+    // ones with a source (see her facts and Ralph's). The "asleep" and "away" episodes after each are a
+    // guess, so correct them if the show says otherwise.
+    timeline: [
+      { ep: 's01e17', status: 'home', note: 'Comes down from the attic for the first time.' },
+      { ep: 's01e18', status: 'home', note: 'Back to sleep up in the attic.', asleep: true },
+      { ep: 's02e01', status: 'away', note: 'Not around in this episode.' },
+      { ep: 's02e20', status: 'home', note: 'Wide awake again.', asleep: false },
+      { ep: 's02e21', status: 'home', note: 'Back to sleep up in the attic.', asleep: true },
+      { ep: 's02e22', status: 'away', note: 'Not around in this episode.' },
+      { ep: 's03e08', status: 'home', note: 'Wide awake again.', asleep: false },
+      { ep: 's03e09', status: 'home', note: 'Back to sleep up in the attic.', asleep: true },
+      { ep: 's03e10', status: 'away', note: 'Not around in this episode.' },
+      { ep: 's04e20', status: 'home', note: 'Wide awake again.', asleep: false },
+      { ep: 's04e21', status: 'home', note: 'Back to sleep up in the attic.', asleep: true },
+      { ep: 's04e22', status: 'away', note: 'Not around in this episode.' },
+    ],
     facts: [{ text: 'Killed by a chainsaw killer on prom night, 1987.', revealedIn: 's01e17' }],
   },
   {
@@ -197,7 +248,8 @@ export const GHOSTS: Ghost[] = [
     born: 1660,
     died: 1690,
     approx: 'both',
-    prop: 'none',
+    prop: 'coif',
+    reveal: { ep: 's04e02', prop: 'bleed' }, // her power, revealed in S4E2: walls that bleed
     spot: { x: 24, y: 95 },
     timeline: [
       { ep: 's03e10', status: 'home', note: 'Reaches up out of the ground.' },
@@ -212,7 +264,7 @@ export const GHOSTS: Ghost[] = [
     born: 1947,
     died: 2024,
     approx: 'born',
-    prop: 'none',
+    prop: 'purse',
     spot: { x: 56, y: 70 },
     timeline: [
       { ep: 's03e04', status: 'home', note: 'Chokes at the Halloween party and stays as a ghost.' },
@@ -227,7 +279,7 @@ export const GHOSTS: Ghost[] = [
     born: 1995,
     died: 2025,
     approx: 'born',
-    prop: 'none',
+    prop: 'partyhat',
     spot: { x: 66, y: 22 },
     timeline: [
       { ep: 's04e15', status: 'home', note: 'Crashes through the restaurant roof and stays as a ghost.' },
@@ -242,10 +294,13 @@ export const GHOSTS: Ghost[] = [
     born: 1910,
     died: 1945,
     approx: 'both',
-    prop: 'none',
+    prop: 'pencil',
+    extra: ['suitcase'], // her power: she can leave the grounds and stay away
     spot: { x: 77, y: 94 },
     timeline: [
       { ep: 's04e17', status: 'home', note: 'A roaming ghost who can leave the property.' },
+      // Away from S5E7 is the first episode that says so; she may have left a little earlier.
+      { ep: 's05e07', status: 'away', note: 'Away for a while.' },
       { ep: 's05e18', status: 'home', note: 'Back after months of walking home from Mongolia.' },
     ],
     facts: [{ text: 'A screenwriter from the 1940s who isn’t tied to one place.', revealedIn: 's04e17' }],
@@ -253,13 +308,27 @@ export const GHOSTS: Ghost[] = [
   {
     id: 'crash',
     name: 'Crash',
+    fadesAway: true,
     era: '1950s greaser',
     born: 1937,
     died: 1955,
     approx: 'both',
     prop: 'headless',
     spot: { x: 31, y: 88 },
-    timeline: [{ ep: 's01e01', status: 'home', note: 'Wanders the grounds without his head.' }],
+    // Crash is only on screen now and then, and his head comes and goes. From the credits and press
+    // coverage; any appearance not listed here is missing, so add it as a home/away pair.
+    timeline: [
+      { ep: 's01e01', status: 'home', note: 'Wanders the grounds without his head.' },
+      { ep: 's01e02', status: 'away', note: 'Not around in this episode.' },
+      { ep: 's01e16', status: 'home', note: 'Wanders through again, still without his head.' },
+      { ep: 's01e17', status: 'away', note: 'Not around in this episode.' },
+      { ep: 's02e19', status: 'home', note: 'Back with his head, which the others finally found.', prop: 'neckSeam' },
+      { ep: 's02e20', status: 'away', note: 'Not around in this episode.' },
+      { ep: 's03e01', status: 'home', note: 'Back in the house.' },
+      { ep: 's03e02', status: 'away', note: 'Not around in this episode.' },
+      { ep: 's04e01', status: 'home', note: 'Back, but his head is missing again.', prop: 'headless' },
+      { ep: 's04e02', status: 'away', note: 'Not around in this episode.' },
+    ],
     facts: [
       { text: 'A greaser from the 1950s who lost his head. His head is somewhere else on the property.', revealedIn: 's01e01' },
       { text: 'His head turns up again.', revealedIn: 's02e19' },
@@ -272,7 +341,7 @@ export const GHOSTS: Ghost[] = [
     born: 1755,
     died: 1777,
     approx: 'both',
-    prop: 'tricorn',
+    prop: 'fife',
     spot: { x: 3.5, y: 83 },
     timeline: [{ ep: 's01e08', status: 'home', note: 'Plays the fife for Nigel in the shed.' }],
     facts: [{ text: 'A Revolutionary War soldier under Nigel. The shed used to be their barracks.', revealedIn: 's01e08' }],
@@ -284,7 +353,7 @@ export const GHOSTS: Ghost[] = [
     born: 1755,
     died: 1777,
     approx: 'both',
-    prop: 'tricorn',
+    prop: 'musket',
     spot: { x: 11, y: 85 },
     timeline: [{ ep: 's01e18', status: 'home', note: 'The third Redcoat in the shed, carrying Nigel’s musket.' }],
     facts: [{ text: 'A Revolutionary War soldier under Nigel.', revealedIn: 's01e18' }],
@@ -297,7 +366,7 @@ export const GHOSTS: Ghost[] = [
     died: 1025,
     approx: 'both',
     haunts: 'farnsby',
-    prop: 'helmet',
+    prop: 'horns',
     spot: { x: 97, y: 82 },
     timeline: [{ ep: 's02e06', status: 'home', note: 'Found haunting the Farnsbys’ place next door.' }],
     facts: [{ text: 'Thorfinn’s son. He died at about the same age his father did.', revealedIn: 's02e06' }],
@@ -306,7 +375,7 @@ export const GHOSTS: Ghost[] = [
     id: 'jessica',
     name: 'Jessica',
     era: 'Bound to her car',
-    prop: 'none',
+    prop: 'wheel',
     spot: { x: 68, y: 90 },
     timeline: [
       { ep: 's02e11', status: 'home', note: 'Arrives inside the car of Sam and Jay’s new assistant, Freddie.' },
@@ -334,16 +403,79 @@ export const GHOSTS: Ghost[] = [
     born: 1945,
     died: 1982,
     approx: 'born',
-    haunts: 'elsewhere',
-    prop: 'none',
-    spot: { x: 0, y: 0 },
-    timeline: [{ ep: 's03e10', status: 'home', note: 'A ghost Pete gets to know far from Woodstone, in St. Lucia.' }],
+    // Lives in St. Lucia, so she is drawn out at the edge beside Pete (see PETE_TRIP) in the episodes she is on screen, and "away" otherwise.
+    prop: 'phone',
+    spot: { x: 95, y: 55 },
+    timeline: [
+      { ep: 's03e10', status: 'home', note: 'A ghost Pete gets to know far from Woodstone, in St. Lucia.' },
+      { ep: 's04e01', status: 'away', note: 'Back in St. Lucia.' },
+      { ep: 's04e19', status: 'home', note: 'Back in Pete’s story. She denies what everyone says about her.' },
+      { ep: 's04e20', status: 'away', note: 'Back in St. Lucia.' },
+      { ep: 's05e15', status: 'home', note: 'Pete visits her in St. Lucia, as a friend.' },
+      { ep: 's05e16', status: 'away', note: 'Back in St. Lucia.' },
+    ],
     facts: [
       { text: 'Haunts St. Lucia, where she died in 1982.', revealedIn: 's03e10' },
       { text: 'Says she killed her husband Gerald and ran. An early cell phone hit her on the head.', revealedIn: 's04e04' },
       { text: 'Linda killed Gerald, not Donna.', revealedIn: 's04e19' },
     ],
   },
+
+  // Hetty's husband, and the rest of the basement.
+  {
+    id: 'elias',
+    name: 'Elias Woodstone',
+    era: 'Robber baron, Hetty’s husband',
+    prop: 'tophat',
+    spot: { x: 62, y: 93 },
+    timeline: [
+      { ep: 's01e13', status: 'home', note: 'Hetty’s husband, found shut in a vault under the house.' },
+      { ep: 's01e14', status: 'away', note: 'Hetty sent him to Hell at the end of the last episode.' },
+      { ep: 's02e17', status: 'home', note: 'Back from Hell on a 48-hour furlough.' },
+      { ep: 's02e18', status: 'away', note: 'His furlough is over and he is back in Hell.' },
+      { ep: 's04e14', status: 'home', note: 'Back again, promoted to a demon who collects souls.' },
+      { ep: 's04e15', status: 'away', note: 'Gone from the house again.' },
+    ],
+    facts: [
+      { text: 'A robber baron who cheated on Hetty. He spent over a century locked in a vault under the house.', revealedIn: 's01e13' },
+      { text: 'He wants Hetty to sign a paper forgiving him.', revealedIn: 's02e17' },
+      { text: 'He is now a demon who collects souls.', revealedIn: 's04e14' },
+    ],
+  },
+  {
+    id: 'ralph',
+    name: 'Ralph',
+    era: 'Teenage cholera victim, basement',
+    prop: 'soresLight',
+    spot: { x: 42, y: 22 },
+    timeline: [
+      { ep: 's02e20', status: 'home', note: 'Set up with Stephanie, the attic ghost.' },
+      { ep: 's03e08', status: 'gone', note: 'Moved on months ago. He was the ghost sucked off at the end of last season.' },
+    ],
+    facts: [
+      { text: 'Died in the cholera outbreak as a teenager. He and Stephanie become a couple.', revealedIn: 's02e20' },
+      { text: 'He moved on to the afterlife while telling Stephanie how happy he was.', revealedIn: 's03e08' },
+    ],
+  },
+  // The basement ghosts all have sores and dark-ringed eyes, each in different places.
+  ...(
+    [
+      ['stuart', 'Stuart', 'soresForehead', { x: 36, y: 94 }],
+      ['creepy-dirk', 'Creepy Dirk', 'soresCheeks', { x: 51, y: 94 }],
+      ['cody', 'Cody', 'soresNeck', { x: 57, y: 87 }],
+      ['catherine', 'Catherine', 'soresMixed', { x: 39, y: 81 }],
+    ] as const
+  ).map(
+    ([id, name, prop, spot]): Ghost => ({
+      id,
+      name,
+      era: 'Cholera victim, basement',
+      prop,
+      spot,
+      timeline: [{ ep: 's01e02', status: 'home', note: 'One of the cholera victims who live in the basement.' }],
+      facts: [{ text: 'Died in the cholera outbreak, and lives down in the basement.', revealedIn: 's01e02' }],
+    }),
+  ),
 ];
 
 export const ghostById = (id: string) => GHOSTS.find((g) => g.id === id);
